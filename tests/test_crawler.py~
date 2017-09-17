@@ -22,7 +22,7 @@ class TestCrawler(unittest.TestCase):
 
     def test_000_something(self):
         """Test something."""
-        self.assertEqual(1,1)
+        self.assert(1,1)
 
     def test_command_line_interface(self):
         """Test the CLI."""

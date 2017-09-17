@@ -43,20 +43,20 @@ def retrieve_url (url):
 
 def start_greeting():
     """Print some messages about this crawler"""
-    print "==========================================================="
-    print "Web-spider  for the 2017"
-    print "George Gorbunov, email: gorbunov@gmail.com"
-    print " let start crawling "
+    print ("===========================================================")
+    print ("Web-spider  for the 2017")
+    print ("George Gorbunov, email: gorbunov@gmail.com")
+    print (" let start crawling ")
 def summary(depth,end,start):
     """ Print summary messages  and calculate the elapsed time """
     elapsed = end - start
     elapsed_time_int = int(elapsed)
-    print "-----------------------------------------------------"
-    print " '*' indicated to the level depth"
+    print ("-----------------------------------------------------")
+    print (" '*' indicated to the level depth")
     print (" %s Webpages were crawled " % (len(graph)))
-    print ' Time taken for crawling {} level is :{} seconds ' \
-                              .format (depth,elapsed_time_int)
-    print "Done :D "
+    print (' Time taken for crawling {} level is :{} seconds ' \
+                              .format (depth,elapsed_time_int))
+    print ("Done :D ")
 
 def print_links (url,n, m, db, search):
     """  to make loop to and extract the url in the crawling depth   """
@@ -68,7 +68,7 @@ def print_links (url,n, m, db, search):
     else:
         graph.append([url])
         
-    print " %s %s " % ("*"*n,url)
+    print (" %s %s " % ("*"*n,url))
     enlaces = retrieve_url (url)
 
     opener = urllib2.build_opener ()    
@@ -77,13 +77,10 @@ def print_links (url,n, m, db, search):
         parser = Broth(t)
         for x in parser.findAll ('h2'):  
             if re.search(search,x.get_text()): 
-    			cursor = db.cursor()
-       			sql = """INSERT INTO Headers(Date, Header, Url) VALUES ('%(Date)s', '%(Header)s', '%(Url)s') """%{"Date":datetime.date.today(), "Header":x.get_text(), "Url":url}
-       
-    			cursor.execute(sql)
-
-    			db.commit()                
-        
+                cursor = db.cursor()
+                sql = """INSERT INTO Headers(Date, Header, Url) VALUES ('%(Date)s', '%(Header)s', '%(Url)s') """%{"Date":datetime.date.today(), "Header":x.get_text(), "Url":url}
+                cursor.execute(sql)
+                db.commit()                
     except urllib2.URLError:
         print ("Error accessing URL. Check your Internet connection")
         return ""
@@ -128,7 +125,7 @@ def main():
         urls = config.get('Main','website')
         urls = urls.split(',')
        
-        print "Websites to search: %s" % urls
+        print ("Websites to search: %s" % urls)
         db = MySQLdb.connect(host=config.get('MySQL','MySQL_Server'), user=config.get('MySQL','MySQL_login'), passwd=config.get('MySQL','MySQL_password'), db="Headers", charset='utf8')
        
         search = config.get('Main','criteria')
